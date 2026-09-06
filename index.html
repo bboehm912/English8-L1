@@ -710,9 +710,15 @@
         <input type="text" placeholder="Type full name to digitally sign" required style="font-family: 'Courier New', monospace; font-size: 1.1em; font-weight: bold;" />
       </div>
 
-      <button type="submit" class="submit-btn">Submit Discussion Notes for Seminar Circle</button>
+      <!-- TAB: STUDENT WORK CHECKPOINT -->
+  <div id="form-tab" class="card tab-content">
+    <h3>Student Work Checkpoint & Reflection</h3>
+    <form id="checkpoint-form" onsubmit="event.preventDefault(); window.print();">
+      <!-- Dynamic form fields injected by script -->
+      <button type="submit" class="submit-btn">Print this page and turn into the Red Basket!</button>
     </form>
   </div>
+
 </div>
 
 <script>
