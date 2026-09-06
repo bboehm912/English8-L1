@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>English 8: Literature, Research, & Composition - Chisholm High School</title>
+  <style>
+    body { 
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+      background-color: #f1f5f9; 
+      margin: 0; 
+      padding: 20px; 
+      color: #1e293b; 
+    }
+    .container { 
+      max-width: 920px; 
+      margin: 0 auto; 
+    }
+    
+    /* Header Card */
+    .header-card, .content-card { 
+      background: #ffffff; 
+      padding: 25px; 
+      border-radius: 12px; 
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06); 
+      margin-bottom: 20px; 
+    }
+    .header-flex { 
+      display: flex; 
+      align-items: center; 
+      justify-content: space-between; 
+    }
+    .header-left { 
+      display: flex; 
+      align-items: center; 
+      gap: 15px; 
+    }
+    
+    /* Logo styling with fail-safe fallback badge */
+    .logo-img { 
+      max-width: 65px; 
+      max-height: 65px; 
+      object-fit: contain; 
+    }
+    .chs-logo-badge {
+      width: 65px; 
+      height: 65px; 
+      background: #0f766e; 
+      color: #fef08a; 
+      border-radius: 10px;
+      display: flex; 
+      flex-direction: column; 
+      align-items: center; 
+      justify-content: center;
+      font-weight: bold; 
+      font-size: 0.7em; 
+      text-align: center; 
+      border: 2px solid #0d9488;
+      box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Stamp with photo overlay */
+    .stamp-container { 
+      position: relative; 
+      width: 80px; 
+      height: 80px; 
+    }
+    .stamp-container .stamp-bg { 
+      width: 100%; 
+      height: 100%; 
+      position: absolute; 
+      top: 0; 
+      left: 0; 
+      z-index: 2; 
+      pointer-events: none; 
+    }
+    .stamp-container .photo-inner { 
+      width: 50px; 
+      height: 50px; 
+      border-radius: 50%; 
+      position: absolute; 
+      top: 15px; 
+      left: 15px; 
+      object-fit: cover; 
+      z-index: 1; 
+    }
+
+    /* Navigation Tabs */
+    .nav-tabs { 
+      display: flex; 
+      gap: 10px; 
+      margin-bottom: 20px; 
+    }
+    .tab-btn { 
+      flex: 1; 
+      padding: 14px 10px; 
+      border-radius: 8px; 
+      border: 1px solid #cbd5e1; 
+      background: #ffffff; 
+      text-align: center; 
+      font-weight: bold; 
+      font-size: 0.9em;
+      cursor: pointer; 
+      transition: all 0.2s ease;
+      color: #334155;
+    }
+    .tab-btn:hover { 
+      background: #f8fafc; 
+    }
+    .tab-btn.active { 
+      background: #0f766e; 
+      color: #ffffff; 
+      border-color: #0f766e; 
+    }
+
+    /* Slide Deck Formatting */
+    .slide-box { 
+      background: #f8fafc; 
+      border: 1px solid #cbd5e1; 
+      border-radius: 10px; 
+      padding: 25px; 
+      min-height: 440px; 
+      display: flex; 
+      flex-direction: column; 
+      justify-content: space-between; 
+    }
+    .slide { 
+      display: none; 
+    }
+    .slide.active { 
+      display: block; 
+    }
+    
+    .slide-header { 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: flex-start; 
+      border-bottom: 2px solid #0f766e; 
+      padding-bottom: 10px; 
+      margin-bottom: 15px; 
+    }
+    .slide-title { 
+      margin: 0; 
+      font-size: 1.3em; 
+      color: #0f172a; 
+    }
+    .std-badge { 
+      background: #ccfbf1; 
+      color: #0f766e; 
+      font-size: 0.75em; 
+      font-weight: bold; 
+      padding: 4px 10px; 
+      border-radius: 6px; 
+      border: 1px solid #99f6e4; 
+      text-transform: uppercase; 
+      white-space: nowrap; 
+    }
+
+    .slide-grid { 
+      display: grid; 
+      grid-template-columns: 1.2fr 0.8fr; 
+      gap: 20px; 
+      align-items: center; 
+    }
+    .slide-content ul { 
+      padding-left: 20px; 
+      line-height: 1.6; 
+      color: #334155; 
+      margin: 0; 
+    }
+    .slide-content li { 
+      margin-bottom: 10px; 
+    }
+    
+    .slide-media { 
+      text-align: center; 
+    }
+    .slide-media img { 
+      width: 100%; 
+      height: 210px; 
+      object-fit: cover; 
+      border-radius: 8px; 
+      border: 1px solid #cbd5e1; 
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); 
+    }
+
+    .ctrl-btn { 
+      background: #0f766e; 
+      color: #ffffff; 
+      border: none; 
+      padding: 10px 22px; 
+      font-weight: bold; 
+      border-radius: 6px; 
+      cursor: pointer; 
+      transition: background 0.2s; 
+    }
+    .ctrl-btn:hover { 
+      background: #115e59; 
+    }
+
+    /* Resource Hub Cards */
+    .link-card {
+      background: #f8fafc; 
+      border: 1px solid #cbd5e1; 
+      border-left: 5px solid #0f766e;
+      border-radius: 8px; 
+      padding: 20px; 
+      margin-bottom: 10px;
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center; 
+      gap: 20px;
+    }
+    .link-btn {
+      background: #0f766e; 
+      color: #ffffff; 
+      text-decoration: none; 
+      padding: 10px 18px;
+      font-weight: bold; 
+      border-radius: 6px; 
+      display: inline-flex; 
+      align-items: center; 
+      gap: 6px;
+      white-space: nowrap; 
+      transition: background 0.2s;
+    }
+    .link-btn:hover { 
+      background: #115e59; 
+    }
+
+    /* Form Styles */
+    .form-group { 
+      margin-bottom: 15px; 
+    }
+    .form-grid { 
+      display: grid; 
+      grid-template-columns: 1fr 1fr; 
+      gap: 15px; 
+    }
+    label { 
+      display: block; 
+      font-weight: bold; 
+      margin-bottom: 5px; 
+      font-size: 0.9em; 
+    }
+    input[type="text"], textarea { 
+      width: 100%; 
+      padding: 10px; 
+      border: 1px solid #cbd5e1; 
+      border-radius: 6px; 
+      box-sizing: border-box; 
+    }
+    textarea { 
+      height: 110px; 
+      resize: vertical; 
+    }
+
+    .req { 
+      color: #dc2626; 
+      font-weight: bold; 
+    }
+    .standard-sec { 
+      margin-top: 20px; 
+      padding-top: 15px; 
+      border-top: 1px solid #e2e8f0; 
+    }
+    
+    .submit-btn { 
+      width: 100%; 
+      background: #0f766e; 
+      color: #ffffff; 
+      padding: 14px; 
+      font-size: 1.1em; 
+      font-weight: bold; 
+      border: none; 
+      border-radius: 8px; 
+      cursor: pointer; 
+      margin-top: 20px; 
+    }
+    .submit-btn:hover { 
+      background: #115e59; 
+    }
+    
+    .view-content { 
+      display: none; 
+    }
+    .view-content.active { 
+      display: block; 
+    }
+
+    /* Print Stylesheet */
+    @media print {
+      body {
+        background: #ffffff;
+        padding: 0;
+        color: #000000;
+      }
+      .container {
+        max-width: 100%;
+        margin: 0;
+      }
+      .nav-tabs, .ctrl-btn, .submit-btn, .header-card {
+        display: none !important;
+      }
+      .content-card {
+        box-shadow: none;
+        padding: 0;
+        margin: 0;
+        border: none;
+      }
+      .view-content {
+        display: none !important;
+      }
+      .view-content.active {
+        display: block !important;
+      }
+      input[type="text"], textarea {
+        border: 1px solid #94a3b8;
+        background: #ffffff;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Header Card -->
+  <div class="header-card">
+    <div class="header-flex">
+      <div class="header-left">
+        <div id="logo-wrapper">
+          <img class="logo-img" src="Chisholmlogo.png" alt="Chisholm High School Logo" 
+               onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='flex';" />
+          <div id="logo-fallback" class="chs-logo-badge" style="display: none;">
+            <span style="font-size: 1.2em;">🏫</span>
+            <span>CHISHOLM</span>
+            <span style="font-size: 0.65em; color: #fff;">HIGH SCHOOL</span>
+          </div>
+        </div>
+        <div>
+          <h2 style="margin: 0; font-size: 1.3em;">English 8: Literature, Research, & Composition</h2>
+          <p style="margin: 5px 0 0 0; color: #64748b; font-size: 0.9em;">Unit 1: Intro to Literary Elements & Plot Arc — Day 1 Orientation</p>
+        </div>
+      </div>
+      <div class="stamp-container">
+        <img class="photo-inner" src="boehm_photo.jpg" alt="Mr. Brady Edward Boehm" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80'" />
+        <img class="stamp-bg" src="boehm-stamp.svg" alt="Classroom Seal" onerror="this.style.display='none'" />
+      </div>
+    </div>
+  </div>
+
+  <!-- 3-Tab Navigation Bar -->
+  <div class="nav-tabs">
+    <button type="button" class="tab-btn active" id="deck-tab" onclick="switchTab('deck')">📖 Unit Curriculum Deck (12 Slides)</button>
+    <button type="button" class="tab-btn" id="resources-tab" onclick="switchTab('resources')">📂 Resource Hub</button>
+    <button type="button" class="tab-btn" id="form-tab" onclick="switchTab('form')">✍️ Textual Response & Discussion Form</button>
+  </div>
+
+  <!-- VIEW 1: Visual Slide Deck -->
+  <div id="deck-view" class="content-card view-content active">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+      <h2 style="margin: 0; font-size: 1.2em; color: #0f172a;">Day 1: Introduction to Literary Elements</h2>
+      <span id="slide-num" style="font-weight: bold; color: #0f766e; background: #ccfbf1; padding: 6px 14px; border-radius: 20px; border: 1px solid #99f6e4; font-size: 0.85em;">Slide 1 of 12</span>
+    </div>
+
+    <!-- Slide Container -->
+    <div class="slide-box">
+      <!-- SLIDE 1 -->
+      <div class="slide active">
+        <div class="slide-header">
+          <h3 class="slide-title">1. Course Orientation & The O.T.I.S. Framework</h3>
+          <span class="std-badge">MN 8.1.1.1</span>
+        </div>
+        <div class="slide-grid">
+          <div class="slide-content">
+            <ul>
+              <li><strong>Instructor:</strong> Mr. Brady Edward Boehm (Hibbing High School Alum 2015).</li>
+              <li><strong>Education:</strong> Calvin University B.A. 🏰 (2020) | University of Oregon M.S. 🦆 (2026).</li>
+              <li><strong>8th Grade O.T.I.S. Framework:</strong> 
+                <strong>O</strong>bservational Reading, 
+                <strong>T</strong>extual Evidence, 
+                <strong>I</strong>nquisitive Analysis, and 
+                <strong>S</strong>torytelling & Synthesis.</li>
+              <li><strong>Course Focus:</strong> Mastering the "Big 5" literary elements, building research skills, and crafting analytical compositions.</li>
+            </ul>
+          </div>
+          <div class="slide-media">
+            <img src="otis-and-boehm.jpg" alt="Mr. Boehm and Classroom Mascot Otis" onerror="this.src='https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=600&q=80'" />
+          </div>
+        </div>
+        <div style="margin-top: 18px; background: #f0fdf4; border-left: 4px solid #0f766e; padding: 12px 16px; border-radius: 6px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <strong style="color: #0f766e; font-size: 0.9em;">✍️ Daily English 8 Bellringer Prompt Generator</strong>
+            <button type="button" onclick="generatePrompt()" style="background: #0f766e; color: #ffffff; border: none; padding: 5px 12px; border-radius: 4px; font-size: 0.78em; font-weight: bold; cursor: pointer;">Generate New Prompt 🔄</button>
+          </div>
+          <p id="prompt-display" style="margin: 0; color: #334155; font-size: 0.88em; font-style: italic;">
+            "Bellringer: In your own words, what is the difference between what a story is about (plot) and what a story teaches us (theme)?"
+          </p>
+        </div>
+      </div>
+
+      <!-- SLIDE 2 -->
+      <div class="slide">
+        <div class="slide-header">
+          <h3 class="slide-title">2. What Are Literary Elements?</h3>
+          <span class="std-badge">MN 8.1.1.1</span>
+        </div>
+        <div class="slide-grid">
+          <div class="slide-content">
+            <ul>
+              <li><strong>The Building Blocks:</strong> Just like bricks build a house, literary elements build a narrative world.</li>
+              <li><strong>Universal Components:</strong> Every story—whether ancient myth, modern novel, or movie—uses these same core tools.</li>
+              <li><strong>Why We Analyze:</strong> Understanding how authors weave elements together helps us become stronger readers and clearer writers.</li>
+            </ul>
+          </div>
+          <div class="slide-media">
+            <img src="https://images.unsplash.com/photo-1457369804613-52c61a468e7d?auto=format&fit=crop&w=600&q=80" alt="Open Book and Library" />
+          </div>
+        </div>
+        <div style="margin-top: 18px; background: #ecfeff; border-left: 4px solid #0891b2; padding: 12px 16px; border-radius: 6px;">
+          <strong style="color: #0e7490; font-size: 0.9em;">💡 The "Big 5" Overview</strong>
+          <p style="margin: 4px 0 0 0; color: #334155; font-size: 0.88em; font-style: italic;">"Plot, Character, Setting, Point of View, and Theme form the foundation of narrative storytelling."</p>
+        </div>
+      </div>
+
+      <!-- SLIDE 3 -->
+      <div class="slide">
+        <div class="slide-header">
+          <h3 class="slide-title">3. Element 1: Plot & Narrative Architecture</h3>
+          <span class="std-badge">MN 8.1.3.3</span>
+        </div>
+        <div class="slide-grid">
+          <div class="slide-content">
+            <ul>
+              <li><strong>Definition:</strong> The sequence of events that make up a story's cause-and-effect structure.</li>
+              <li><strong>The Engine of Plot:</strong> Every plot is driven forward by a central <strong>conflict</strong> (problem to solve).</li>
+              <li><strong>Action vs. Plot:</strong> Action is what happens; plot is <em>why</em> it happens and how characters respond.</li>
+            </ul>
+          </div>
+          <div class="slide-media">
+            <img src="https://images.unsplash.com/photo-1516979187457-637abb4f9353?auto=format&fit=crop&w=600&q=80" alt="Writing Story Concept" />
+          </div>
+        </div>
+        <div style="margin-top: 18px; background: #fdf4ff; border-left: 4px solid #c026d3; padding: 12px 16px; border-radius: 6px;">
+          <strong style="color: #86198f; font-size: 0.9em;">📈 Key Concept: Cause & Effect</strong>
+          <p style="margin: 4px 0 0 0; color: #334155; font-size: 0.88em; font-style: italic;">"Events in a strong plot don't just happen 'and then'—they happen 'therefore' and 'but'!"</p>
+        </div>
+      </div>
+
+      <!-- SLIDE 4 -->
+      <div class="slide">
+        <div class="slide-header">
+          <h3 class="slide-title">4. Mapping the Plot Arc (Freytag's Pyramid)</h3>
+          <span class="std-badge">MN 8.1.3.3</span>
+        </div>
+        <div class="slide-grid">
+          <div class="slide-content">
+            <ul>
+              <li><strong>1. Exposition:</strong> Background info, setting, and character introductions.</li>
+              <li><strong>2. Inciting Incident:</strong> The spark that sets the main conflict in motion.</li>
+              <li><strong>3. Rising Action:</strong> Complications and stakes build intensity.</li>
+              <li><strong>4. Climax:</strong> The turning point and emotional peak of the narrative.</li>
+              <li><strong>5. Falling Action & Resolution:</strong> Loose ends tie up and a new normal is established.</li>
+            </ul>
+          </div>
+          <div class="slide-media">
+            <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80" alt="Mountain Peak Plot Arc Symbol" />
+          </div>
+        </div>
+        <div style="margin-top: 18px; background: #fffbe3; border-left: 4px solid #d97706; padding: 12px 16px; border-radius: 6px;">
+          <strong style="color: #b45309; font-size: 0.9em;">🏔️ Plot Arc Landmark</strong>
+          <p style="margin: 4px 0 0 0; color: #334155; font-size: 0.88em; font-style: italic;">"Notice how tension rises steeply toward the climax before settling into resolution."</p>
+        </div>
+      </div>
+
+      <!-- SLIDE 5 -->
+      <div class="slide">
+        <div class="slide-header">
+          <h3 class="slide-title">5. Element 2: Characterization & Character Types</h3>
+          <span class="std-badge">MN 8.1.3.3</span>
+        </div>
+        <div class="slide-grid">
+          <div class="slide-content">
+            <ul>
+              <li><strong>Protagonist vs. Antagonist:</strong> The main figure driving the goal vs. the force opposing them.</li>
+              <li><strong>Direct Characterization:</strong> The author explicitly tells us traits (e.g., "She was stubborn").</li>
+              <li><strong>Indirect Characterization (STEAL):</strong> Revealed through Speech, Thoughts, Effect on others, Actions, and Looks.</li>
+              <li><strong>Dynamic vs. Static:</strong> Characters who transform internally vs. those who remain unchanged.</li>
+            </ul>
+          </div>
+          <div class="slide-media">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80" alt="Portrait Character Study" />
+          </div>
+        </div>
+        <div style="margin-top: 18px; background: #f0fdf4; border-left: 4px solid #16a34a; padding: 12px 16px; border-radius: 6px;">
+          <strong style="color: #15803d; font-size: 0.9em;">🎭 STEAL Acronym Tip</strong>
+          <p style="margin: 4px 0 0 0; color: #334155; font-size: 0.88em; font-style: italic;">"Great writers show character through actions and dialogue rather than just telling!"</p>
+        </div>
+      </div>
+
+      <!-- SLIDE 6 -->
+      <div class="slide">
+        <div class="slide-header">
+          <h3 class="slide-title">6. Element 3: Setting & Atmosphere</h3>
+          <span class="std-badge">MN 8.1.3.3</span>
+        </div>
+        <div class="slide-grid">
+          <div class="slide-content">
+            <ul>
+              <li><strong>Three Dimensions of Setting:</strong> <strong>Time</strong> (era, hour), <strong>Place</strong> (geographic location), and <strong>Social Environment</strong> (culture, rules).</li>
+              <li><strong>Mood Creation:</strong> Setting shapes the emotional atmosphere or feeling experienced by the reader.</li>
+              <li><strong>Setting as Character:</strong> In many survival or historical stories, the environment acts as an active antagonist.</li>
+            </ul>
+          </div>
+          <div class="slide-media">
+            <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=600&q=80" alt="Dramatic Landscape Setting" />
+          </div>
+        </div>
+        <div style="margin-top: 18px; background: #eff6ff; border-left: 4px solid #2563eb; padding: 12px 16px; border-radius: 6px;">
+          <strong style="color: #1d4ed8; font-size: 0.9em;">🌍 World-Building Note</strong>
+          <p style="margin: 4px 0 0 0; color: #334155; font-size: 0.88em; font-style: italic;">"Change the setting, and you often change the entire conflict of the story!"</p>
+        </div>
+      </div>
+
+      <!-- SLIDE 7 -->
+      <div class="slide">
+        <div class="slide-header">
+          <h3 class="slide-title">7. Element 4: Point of View (P.O.V.)</h3>
+          <span class="std-badge">MN 8.1.6.6</span>
+        </div>
+        <div class="slide-grid">
+          <div class="slide-content">
+            <ul>
+              <li><strong>1st Person ("I, We"):</strong> Narrator is inside the story; reader sees thoughts directly, but perspective is limited.</li>
+              <li><strong>3rd Person Limited ("He, She, They"):</strong> Narrator focuses closely on one character's experience.</li>
+              <li><strong>3rd Person Omniscient:</strong> All-knowing narrator who sees into every character's mind and secrets.</li>
+              <li><strong>Unreliable Narrator:</strong> A speaker whose perspective may be biased, mistaken, or misleading.</li>
+            </ul>
+          </div>
+          <div class="slide-media">
+            <img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=600&q=80" alt="Perspective Lens Reading" />
+          </div>
+        </div>
+        <div style="margin-top: 18px; background: #faf5ff; border-left: 4px solid #9333ea; padding: 12px 16px; border-radius: 6px;">
+          <strong style="color: #7e22ce; font-size: 0.9em;">👁️ Lens Analysis</strong>
+          <p style="margin: 4px 0 0 0; color: #334155; font-size: 0.88em; font-style: italic;">"Always ask: Who is telling this story, and what might they be hiding or omitting?"</p>
+        </div>
+      </div>
+
+      <!-- SLIDE 8 -->
+      <div class="slide">
+        <div class="slide-header">
+          <h3 class="slide-title">8. Element 5: Theme vs. Topic</h3>
+          <span class="std-badge">MN 8.1.2.2</span>
+        </div>
+        <div class="slide-grid">
+          <div class="slide-content">
+            <ul>
+              <li><strong>Topic (1-2 Words):</strong> The subject matter (e.g., "Courage", "Friendship", "Revenge").</li>
+              <li><strong>Theme (Full Sentence):</strong> The author's central insight or message about life (e.g., "True courage requires standing up even when afraid").</li>
+              <li><strong>Uncovering Theme:</strong> Examine how the protagonist changes and what lesson they learn from the climax.</li>
+            </ul>
+          </div>
+          <div class="slide-media">
+            <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=600&q=80" alt="Thinking and Writing Theme" />
+          </div>
+        </div>
+        <div style="margin-top: 18px; background: #fff7ed; border-left: 4px solid #ea580c; padding: 12px 16px; border-radius: 6px;">
+          <strong style="color: #c2410c; font-size: 0.9em;">🎯 Golden Rule of Theme</strong>
+          <p style="margin: 4px 0 0 0; color: #334155; font-size: 0.88em; font-style: italic;">"A theme is never a single word! It must express a complete universal truth."</p>
+        </div>
+      </div>
+
+      <!-- SLIDE 9 -->
+      <div class="slide">
+        <div class="slide-header">
+          <h3 class="slide-title">9. Internal vs. External Conflict</h3>
+          <span class="std-badge">MN 8.1.3.3</span>
+        </div>
+        <div class="slide-grid">
+          <div class="slide-content">
+            <ul>
+              <li><strong>Internal Conflict:</strong> Character vs. Self (wrestling with fear, moral choices, guilt, or identity).</li>
+              <li><strong>External Conflict:</strong> 
+                <ul>
+                  <li>Character vs. Character</li>
+                  <li>Character vs. Nature / Environment</li>
+                  <li>Character vs. Society / System</li>
+                </ul>
+              </li>
+              <li><strong>Layered Conflicts:</strong> Great literature combines internal and external struggles simultaneously.</li>
+            </ul>
+          </div>
+          <div class="slide-media">
+            <img src="https://images.unsplash.com/photo-1447069387593-a5de0862481e?auto=format&fit=crop&w=600&q=80" alt="Stormy Sea Conflict Symbol" />
+          </div>
+        </div>
+        <div style="margin-top: 18px; background: #fef2f2; border-left: 4px solid #dc2626; padding: 12px 16px; border-radius: 6px;">
+          <strong style="color: #b91c1c; font-size: 0.9em;">⚡ Conflict Engine</strong>
+          <p style="margin: 4px 0 0 0; color: #334155; font-size: 0.88em; font-style: italic;">"Without conflict, there is no plot tension, no character growth, and no story!"</p>
+        </div>
+      </div>
+
+      <!-- SLIDE 10 -->
+      <div class="slide">
+        <div class="slide-header">
+          <h3 class="slide-title">10. Active Reading & Annotation Strategies</h3>
+          <span class="std-badge">MN 8.1.1.1</span>
+        </div>
+        <div class="slide-grid">
+          <div class="slide-content">
+            <ul>
+              <li><strong>Pass 1 - Overview:</strong> Read for plot arc flow and immediate impressions.</li>
+              <li><strong>Pass 2 - Observational Note-Taking:</strong> Track character choices, setting changes, and key dialogue.</li>
+              <li><strong>Margin Symbols:</strong> Use <strong>?</strong> for questions, <strong>!</strong> for turning points, and <strong>★</strong> for key evidence.</li>
+              <li><strong>O.T.I.S. Standard:</strong> Always pair highlighters with marginal commentary—never highlight passively!</li>
+            </ul>
+          </div>
+          <div class="slide-media">
+            <img src="https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=600&q=80" alt="Notebook Annotations" />
+          </div>
+        </div>
+        <div style="margin-top: 18px; background: #f0fdf4; border-left: 4px solid #059669; padding: 12px 16px; border-radius: 6px;">
+          <strong style="color: #047857; font-size: 0.9em;">📝 Annotation Guideline</strong>
+          <p style="margin: 4px 0 0 0; color: #334155; font-size: 0.88em; font-style: italic;">"If you highlight a sentence, write at least 3 words in the margin explaining why it caught your attention!"</p>
+        </div>
+      </div>
+
+      <!-- SLIDE 11 -->
+      <div class="slide">
+        <div class="slide-header">
+          <h3 class="slide-title">11. Citing Textual Evidence (The Quote Sandwich)</h3>
+          <span class="std-badge">MN 8.2.1.1</span>
+        </div>
+        <div class="slide-grid">
+          <div class="slide-content">
+            <ul>
+              <li><strong>Top Bread:</strong> Introduce context and signal phrase (e.g., <em>"When describing the setting, the author notes..."</em>).</li>
+              <li><strong>Filling:</strong> Embed the exact short quote with line/page numbers.</li>
+              <li><strong>Bottom Bread:</strong> Explain how the quote supports your analytical claim—never leave quotes floating alone!</li>
+            </ul>
+          </div>
+          <div class="slide-media">
+            <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80" alt="Analytical Writing" />
+          </div>
+        </div>
+        <div style="margin-top: 18px; background: #ecfeff; border-left: 4px solid #0891b2; padding: 12px 16px; border-radius: 6px;">
+          <strong style="color: #0e7490; font-size: 0.9em;">🥪 The Quote Sandwich Method</strong>
+          <p style="margin: 4px 0 0 0; color: #334155; font-size: 0.88em; font-style: italic;">"Claim + Context + Quote + Explanation = Solid evidence-based composition!"</p>
+        </div>
+      </div>
+
+      <!-- SLIDE 12 -->
+      <div class="slide">
+        <div class="slide-header">
+          <h3 class="slide-title">12. Next Steps: Complete Your Response Form</h3>
+          <span class="std-badge">MN 8.3.1.1</span>
+        </div>
+        <div class="slide-grid">
+          <div class="slide-content">
+            <ul>
+              <li><strong>Step 1:</strong> Switch to the <strong>"Resource Hub"</strong> tab to review our mentor texts and reference sheets.</li>
+              <li><strong>Step 2:</strong> Click on the <strong>"Textual Response & Discussion Form"</strong> tab.</li>
+              <li><strong>Step 3:</strong> Fill in your student information and complete both reflection prompts with evidence.</li>
+              <li><strong>Step 4:</strong> Sign digitally and submit to qualify for tomorrow's peer discussion circle!</li>
+            </ul>
+          </div>
+          <div class="slide-media">
+            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=600&q=80" alt="Discussion Prep" />
+          </div>
+        </div>
+        <div style="margin-top: 18px; background: #f0fdf4; border-left: 4px solid #059669; padding: 12px 16px; border-radius: 6px;">
+          <strong style="color: #047857; font-size: 0.9em;">🎓 Seminar Qualification</strong>
+          <p style="margin: 4px 0 0 0; color: #334155; font-size: 0.88em; font-style: italic;">"Great job completing Day 1 Orientation! Transition to the form tab above to submit your analysis."</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px;">
+      <button type="button" class="ctrl-btn" onclick="changeSlide(-1)">⬅️ Previous Section</button>
+      <button type="button" class="ctrl-btn" onclick="changeSlide(1)">Next Section ➡️</button>
+    </div>
+  </div>
+
+  <!-- VIEW 2: Resource Hub -->
+  <div id="resources-view" class="content-card view-content">
+    <h2 style="margin: 0 0 15px 0; font-size: 1.3em; color: #0f172a;">📂 Resource Hub</h2>
+
+    <!-- Resource 1: External Article Web Link Card -->
+    <div class="link-card">
+      <div>
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+          <span style="background: #e0f2fe; color: #0369a1; font-size: 0.75em; font-weight: bold; padding: 3px 8px; border-radius: 4px;">EXTERNAL ARTICLE</span>
+          <h3 style="margin: 0; font-size: 1.1em; color: #0f766e;">Fertile Crescent Reading</h3>
+        </div>
+        <p style="margin: 0; color: #475569; font-size: 0.9em;">Explore the history of the Fertile Crescent, early writing systems, and the world's oldest recorded storytelling traditions.</p>
+      </div>
+      <a href="https://www.history.com/topics/ancient-middle-east/fertile-crescent" target="_blank" rel="noopener noreferrer" class="link-btn">
+        Launch Web Resource ↗️
+      </a>
+    </div>
+  </div>
+
+  <!-- VIEW 3: Student Discussion Form -->
+  <div id="form-view" class="content-card view-content">
+    <h2 style="margin: 0 0 5px 0; font-size: 1.3em;">Textual Analysis Submission & Reflection Form</h2>
+    <p style="margin: 0 0 20px 0; color: #64748b; font-size: 0.9em;">Submit your literary analysis responses and class orientation notes below.</p>
+
+    <form id="checkpoint-form" onsubmit="event.preventDefault(); window.print();">
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Student Full Name <span class="req">*</span></label>
+          <input type="text" placeholder="e.g. Alex Morgan" required />
+        </div>
+        <div class="form-group">
+          <label>Class Period <span class="req">*</span></label>
+          <input type="text" placeholder="e.g. English 8 - Period 2" required />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Primary Focus Text <span class="req">*</span></label>
+        <input type="text" value='English 8: "Big 5" Literary Elements & Plot Arc Structure' required />
+      </div>
+
+      <div class="standard-sec">
+        <h3 style="margin: 0 0 15px 0; font-size: 1.1em; color: #0f172a;">Critical Reflection & Literary Analysis</h3>
+        <div class="form-group">
+          <label>1. Choose a story, book, or movie you know well. Break down its plot arc by identifying the exposition, climax, and resolution, and explain how the main conflict drove the narrative forward. <span class="req">*</span></label>
+          <textarea placeholder="Identify the protagonist, main conflict, climax, and resolution with clear details..." required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>2. Explain the difference between topic and theme. How does an author's choice of setting and characterization reveal the story's overall theme? <span class="req">*</span></label>
+          <textarea placeholder="Provide specific examples from mentor texts or your reading experience..." required></textarea>
+        </div>
+      </div>
+
+      <div class="form-group" style="margin-top: 25px;">
+        <label>Student Digital Signature (Type Legal Full Name) <span class="req">*</span></label>
+        <input type="text" placeholder="Type full name to digitally sign" required style="font-family: 'Courier New', monospace; font-size: 1.1em; font-weight: bold;" />
+      </div>
+
+      <button type="submit" class="submit-btn">Print this page and turn into the Red Basket!</button>
+    </form>
+  </div>
+
+</div>
+
+<script>
+  let currentSlide = 0;
+  const slides = document.querySelectorAll('.slide');
+
+  function showSlide(index) {
+    slides.forEach((slide, i) => {
+      slide.classList.toggle('active', i === index);
+    });
+    document.getElementById('slide-num').innerText = `Slide ${index + 1} of ${slides.length}`;
+  }
+
+  function changeSlide(direction) {
+    currentSlide += direction;
+    if (currentSlide < 0) currentSlide = 0;
+    if (currentSlide >= slides.length) currentSlide = slides.length - 1;
+    showSlide(currentSlide);
+  }
+
+  function switchTab(tab) {
+    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+    document.querySelectorAll('.view-content').forEach(view => view.classList.remove('active'));
+
+    document.getElementById(tab + '-tab').classList.add('active');
+    document.getElementById(tab + '-view').classList.add('active');
+  }
+
+  const literaryPrompts = [
+    '"Bellringer: In your own words, what is the difference between what a story is about (plot) and what a story teaches us (theme)?"',
+    '"Bellringer: How does an author use setting to create mood? Give an example from a book or movie you know."',
+    '"Bellringer: What is the difference between direct and indirect characterization? Which is more engaging for readers?"',
+    '"Bellringer: Identify a story where the setting acts almost like a character itself. What makes it so influential?"',
+    '"Bellringer: How does internal conflict differ from external conflict? Can a story have both at the same time?"',
+    '"Bellringer: Why is third-person omniscient point of view useful for complex, multi-character stories?"'
+  ];
+
+  function generatePrompt() {
+    const randomIndex = Math.floor(Math.random() * literaryPrompts.length);
+    document.getElementById('prompt-display').innerText = literaryPrompts[randomIndex];
+  }
+</script>
+
+</body>
+</html>
